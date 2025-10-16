@@ -299,3 +299,61 @@ document.addEventListener("DOMContentLoaded", () => {
     return div.innerHTML;
   }
 });
+
+
+(function () {
+  function onReady(fn) {
+    if (document.readyState !== "loading") fn();
+    else document.addEventListener("DOMContentLoaded", fn);
+  }
+
+  onReady(function () {
+   
+    const form = document.getElementById("contact-form");
+    if (!form) return; 
+
+    const email = form.querySelector("#email");
+    const emailHelp = form.querySelector("#emailHelp");
+
+    function clearEmailError() {
+      email.classList.remove("error", "touched");
+      email.removeAttribute("aria-invalid");
+      emailHelp.textContent = "";
+    }
+
+    function setEmailError(msg) {
+      email.classList.add("error", "touched");
+      email.setAttribute("aria-invalid", "true");
+      emailHelp.textContent = msg;
+    }
+
+    
+    email.addEventListener("blur", () => {
+      if (email.value.trim() === "") return;
+      if (!email.checkValidity()) setEmailError("Ingresá un correo electrónico válido.");
+    });
+
+    
+    email.addEventListener("input", () => {
+      if (email.value.trim() === "" || email.checkValidity()) clearEmailError();
+    });
+
+    
+    form.addEventListener("submit", (e) => {
+      clearEmailError();
+      const v = email.value.trim();
+
+      if (v === "") {
+        e.preventDefault();
+        setEmailError("Ingresá tu correo electrónico.");
+        email.focus();
+        return;
+      }
+      if (!email.checkValidity()) {
+        e.preventDefault();
+        setEmailError("Ingresá un correo electrónico válido.");
+        email.focus();
+      }
+    });
+  });
+})();

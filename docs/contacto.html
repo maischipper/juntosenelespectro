@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/styles.css">
     <link rel="icon" type="image/png" href="img/favicon-v1.png">
+    <script src="js/scripts.js" defer></script>
 </head>
 <body>
     <div id="header-placeholder"></div>
@@ -16,6 +17,67 @@
                 <h1>Construyamos juntos</h1>
                 <p class="subheader">Si sos profesional, docente o voluntario con ganas de aportar tu experiencia, este espacio es para vos. Contactanos y sumate a nuestra red de apoyo.</p>
             </div>
+        </section>
+
+        <section id="contacto" class="section contact">
+            <div class="container">
+                <h2 class="section-title">Datos de contacto</h2>
+
+                <ul class="contact-list">
+                <li>
+                    <a class="contact-item" href="tel:+542236822988" aria-label="Llamar al 223 682 2988">
+                    <span class="icon" aria-hidden="true">📞</span>
+                    <span class="label">2236822988</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="contact-item" href="tel:+542235570880" aria-label="Llamar al 223 557 0880">
+                    <span class="icon" aria-hidden="true">📞</span>
+                    <span class="label">2235570880</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="contact-item" href="mailto:contacto@juntosenelespectro.com" aria-label="Enviar correo a contacto arroba juntosenelespectro punto com">
+                    <span class="icon" aria-hidden="true">✉️</span>
+                    <span class="label">contacto@juntosenelespectro.com</span>
+                    </a>
+                </li>
+                </ul>
+            </div>
+            </section>
+
+            <section class="section contact-form">
+        <div class="container">
+            <h2 class="section-title">Envíanos un mensaje</h2>
+            <p class="section-subtitle">Dejanos tus datos y comentarios para ponernos en contacto.</p>
+
+            <form id="contact-form" novalidate>
+            <div class="field">
+                <label for="name">Nombre</label>
+                <input id="name" name="name" type="text" placeholder="Ingresá tu nombre" autocomplete="name">
+            </div>
+
+            <div class="field">
+                <label for="phone">Teléfono</label>
+                <input id="phone" name="phone" type="tel" placeholder="Ingresá tu número de teléfono"
+                    inputmode="tel" autocomplete="tel">
+            </div>
+
+            <div class="field">
+                <label for="email" class="required">Correo electrónico</label>
+                <input id="email" name="email" type="email" placeholder="Ingresá tu email"
+                    required aria-required="true" autocomplete="email">
+                <small id="emailHelp" class="help" aria-live="polite"></small>
+            </div>
+
+            <div class="field">
+                <label for="message">Mensaje</label>
+                <textarea id="message" name="message" rows="5" placeholder="Tu mensaje…"></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary">ENVIAR</button>
+            </form>
+        </div>
         </section>
 
 
