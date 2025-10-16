@@ -21,40 +21,6 @@ pre, code { white-space:pre-wrap; word-break:break-word; }
 
 body { overflow-wrap:anywhere; }
 
-header nav ul,
-.nav ul { 
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-header nav a,
-.nav a {
-  display: inline-block;
-  white-space: nowrap;       
-  word-break: normal;
-  overflow-wrap: normal;
-}
-
-
-header nav, .nav { 
-  overflow: visible;
-}
-
-
-@media (max-width: 767px){
-  header nav ul, .nav ul { gap: 12px; }
-}
-
-body { overflow-wrap: normal; }
-
-main, .content, .section, p {
-  overflow-wrap: anywhere;
-}
-
 .row {
   display: flex;
   flex-wrap: wrap;
@@ -1001,56 +967,3 @@ footer {
     padding: 1em 1.75em;
   }
 }
-
-.site-header { width:100%; background:#e9f2ff; }
-.site-header .header-inner{
-  display:flex; align-items:center; justify-content:space-between; gap:24px;
-  max-width:1200px; margin-inline:auto; padding:14px 16px; box-sizing:border-box;
-}
-.brand{ flex:0 0 auto; }
-.brand img{ max-width:160px; height:auto; display:block; }
-
-
-#main-nav{ flex:1 1 auto; min-width:0; }
-
-
-#main-menu{ display:flex; flex-wrap:nowrap; justify-content:flex-end; align-items:center; gap:24px;
-  list-style:none; margin:0; padding:0;
-}
-#main-menu a{ display:inline-block; text-decoration:none; color:#1f1f1f; font-weight:500; white-space:nowrap; }
-
-
-.hamburger{ display:none; background:transparent; border:0; padding:8px; cursor:pointer; }
-.hamburger span{ display:block; width:24px; height:2px; background:#1f1f1f; margin:5px 0; }
-
-/* ===== MOBILE  ===== */
-@media (max-width: 992px){
-  .hamburger{ display:block; }
-  
-  #main-nav.nav-panel{
-    position:fixed; top:0; right:0; height:100dvh; width:min(320px,85vw);
-    background:#ffffff; box-shadow:-12px 0 24px rgba(0,0,0,.1);
-    transform:translateX(100%); transition:transform .25s ease;
-    padding:24px 20px; overflow-y:auto; z-index:1001;
-  }
-  
-  #main-nav.nav-panel.open{ transform:translateX(0); }
-
-  
-  #main-menu{ flex-direction:column; align-items:flex-start; gap:16px; }
-
-  
-  .nav-backdrop{
-    position:fixed; inset:0; background:rgba(0,0,0,.35);
-    z-index:1000; display:block;
-  }
-  .nav-backdrop[hidden]{ display:none; }
-
- 
-  #main-nav{ flex:none; min-width:auto; }
-}
-
-
-html, body{ margin:0; padding:0; overflow-x:hidden; }
-*{ box-sizing:border-box; }
-img{ max-width:100%; height:auto; display:block; }
