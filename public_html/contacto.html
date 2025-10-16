@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto | Juntos en el Espectro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="icon" type="image/png" href="img/favicon-v1.png">
+</head>
+<body>
+    <div id="header-placeholder"></div>
+    <main>
+        <section class="section-hero bg-gradient-orange" style="background-image: url('img/hero-bg-contacto.jpg');">
+            <div class="hero-content">
+                <h1>Construyamos juntos</h1>
+                <p class="subheader">Si sos profesional, docente o voluntario con ganas de aportar tu experiencia, este espacio es para vos. Contactanos y sumate a nuestra red de apoyo.</p>
+            </div>
+        </section>
+
+
+        <section class="container newsletter">
+            <h2>Suscribite a nuestro newsletter</h2>
+            <p class="mt-4 mb-4">Recibí recursos, guías y novedades para acompañar en el día a día.</p>
+
+            <form id="newsletter-form" class="newsletter-form" novalidate>
+                <label for="nl-email">Correo electrónico</label>
+
+                <div class="input-group">
+                <input type="email" id="nl-email" name="email" placeholder="Ingresá tu email" autocomplete="email" required aria-describedby="nl-help"/>
+                <button type="submit" class="btn orange" id="nl-submit">Suscribirme</button>
+                </div>
+                <small id="nl-help" class="help">Prometemos no enviar spam. Podés darte de baja cuando quieras.</small>
+                <div id="nl-status" class="nl-status" role="status" aria-live="polite" hidden></div>
+            </form>
+        </section>
+    </main>
+    <div id="footer-placeholder"></div>
+    <script src="./js/scripts.js" defer></script>
+</body>
+</html>
