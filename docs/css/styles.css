@@ -1190,3 +1190,30 @@ label.required::after { content:" *"; color:#e63946; margin-left:4px; }
 @media (min-width:768px){
   #contact-form{ margin-inline:auto; }
 }
+
+.contact.section      { padding-block: 24px 12px; }  
+.contact-form.section { padding-block: 12px 32px; }   
+
+@media (min-width: 768px){
+  .contact.section      { padding-block: 36px 16px; }
+  .contact-form.section { padding-block: 16px 48px; }
+}
+
+
+.section-title   { margin: 0 0 .65rem; line-height: 1.2; }
+.section-subtitle{ margin: .25rem 0 1rem; }
+
+
+.contact-list{ margin-top: .5rem; gap: 8px; }
+.contact-list li{ margin: 0; }             
+
+
+.contact-item{ padding: 6px 0; gap: 10px; }
+.contact .icon{ width: 22px; height: 22px; font-size: 1rem; }
+.contact .label{ line-height: 1.35; }
+
+
+#contact-form{ gap: 10px; margin-top: 8px; }
+.field label{ margin-bottom: .35rem; }
+#contact-form textarea{ min-height: 120px; }
+.btn-primary{ margin-top: 8px; }
