@@ -119,6 +119,12 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!wrap) return;
 
   const scroller = wrap.querySelector('.articles-grid');
+  const cards = [...scroller.children];
+  cards.forEach(card => {
+    const clone = card.cloneNode(true);
+    scroller.appendChild(clone);
+  });
+
   const prevBtn  = wrap.querySelector('.prev');
   const nextBtn  = wrap.querySelector('.next');
 
@@ -153,9 +159,18 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function scrollByCard(dir = 1) {
-    scroller.scrollBy({ left: dir * slideWidth(), behavior: 'smooth' });
-    setTimeout(updateButtons, 300);
+  const width = slideWidth();
+  scroller.scrollBy({ left: dir * width, behavior: 'smooth' });
+
+  if (dir > 0 && scroller.scrollLeft >= scroller.scrollWidth / 2) {
+    scroller.scrollLeft = 0;
+  } else if (dir < 0 && scroller.scrollLeft <= 0) {
+    scroller.scrollLeft = scroller.scrollWidth / 2 - scroller.clientWidth;
   }
+
+  setTimeout(updateButtons, 500);
+}
+
 
   
   if (prevBtn) prevBtn.addEventListener('click', () => scrollByCard(-1));
@@ -163,18 +178,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   
   function startAutoplay() {
-    if (!autoplayEnabled || prefersReduced) return;
-    stopAutoplay();
-    autoplayTimer = setInterval(() => {
-      if (isHoverOrFocus) return;
-      
-      if (atEnd()) {
-        scroller.scrollTo({ left: 0, behavior: 'smooth' });
-      } else {
-        scrollByCard(1);
-      }
-    }, intervalMs);
-  }
+  if (!autoplayEnabled || prefersReduced) return;
+  stopAutoplay();
+
+  autoplayTimer = setInterval(() => {
+    if (isHoverOrFocus) return;
+
+    const width = slideWidth();
+    scroller.scrollBy({ left: width, behavior: 'smooth' });
+
+    if (scroller.scrollLeft >= scroller.scrollWidth / 2) {
+      scroller.scrollLeft = 0;
+    }
+  }, intervalMs);
+}
+
   function stopAutoplay() { if (autoplayTimer) clearInterval(autoplayTimer); }
 
   
