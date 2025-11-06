@@ -21,14 +21,29 @@
 
 
         <section class="recursos">
-            <div class="container">
-            <h2>El más descargado</h2>
-            <p>Nuestro recurso más querido por la comunidad. Diseñado para acompañar las rutinas diarias y favorecer la comunicación con apoyos visuales claros y prácticos.</p>
-            <p>El recurso estrella de nuestra biblioteca: práctico, visual y fácil de usar. Descargalo gratis y empezá a aplicarlo hoy mismo. </p>
-            <a href="./recursos/set-pictogramas-diarios.html"><img src="./img/pictogramas.png" alt="Pictogramas impresos esparcidos sobre una mesa blanca." class="rounded"></a>
-            <p>Set de pictogramas que ayuda a organizar actividades, anticipar rutinas y brindar seguridad en el día a día.</p>
-            <a href="recursos-descargables.html" class="btn pink">Descargar</a>
+        <div class="container">
+            <div class="recursos-inner">
+          
+            <div class="recursos-texto">
+                <h2>El más descargado</h2>
+                <p>Nuestro recurso más querido por la comunidad. Diseñado para acompañar las rutinas diarias y favorecer la comunicación con apoyos visuales claros y prácticos.</p>
+                <p>El recurso estrella de nuestra biblioteca: práctico, visual y fácil de usar. Descargalo gratis y empezá a aplicarlo hoy mismo.</p>
+                <p>Set de pictogramas que ayuda a organizar actividades, anticipar rutinas y brindar seguridad en el día a día.</p>
+
+                <div class="boton-desktop-wrapper">
+                <a href="recursos-descargables.html" class="btn pink btn-desktop">Descargar</a>
+                </div>
             </div>
+
+            <div class="recursos-imagen">
+                <a href="./recursos/set-pictogramas-diarios.html">
+                <img src="./img/pictogramas.png" alt="Pictogramas impresos esparcidos sobre una mesa blanca." class="rounded">
+                </a>
+            </div>
+
+            <a href="recursos-descargables.html" class="btn pink btn-mobile">Descargar</a>
+            </div>
+        </div>
         </section>
 
 
@@ -84,35 +99,78 @@
         </section>
 
 
-        <section class="text-center eventos">
-            <div class="container">
-            <h2>Próximo Evento</h2>
-            <p class="mt-4 mb-4">Un espacio pensado para vos y tu familia: aprendé, conectá con otras personas y descubrí nuevas herramientas para acompañar el camino del TEA.</p>
-            <h3>Puentes de apoyo: Estrategias en casa</h3>
-            <span class="timer text-center mb-4">00:00:00</span>
-            <a href="eventos.html"><img src="./img/estrategias-en-casa-evento.jpg" alt="Banner de evento online gratuito sobre..." class="rounded"></a>
-            <a href="#" class="btn purple">Quiero participar</a>
+        <section class="eventos text-center">
+        <div class="container">
+            <div class="eventos-inner">
+           
+            <div class="eventos-texto">
+                <h2>Próximo Evento</h2>
+                <p class="mt-4 mb-4">
+                Un espacio pensado para vos y tu familia: aprendé, conectá con otras personas y descubrí nuevas herramientas para acompañar el camino del TEA.
+                </p>
+                <h3>Puentes de apoyo: Estrategias en casa</h3>
+                <span class="timer text-center-mb mb-4" data-target="2025-12-15T19:00:00">00:00:00</span>
+
+                <div class="boton-desktop-wrapper">
+                <a href="#" class="btn purple btn-desktop">Quiero participar</a>
+                </div>
+            </div>
+
+            <div class="eventos-imagen">
+                <a href="eventos.html">
+                <img src="./img/estrategias-en-casa-evento.jpg"
+                    alt="Banner de evento online gratuito sobre estrategias en casa."
+                    class="rounded" />
+                </a>
+            </div>
+
+            <a href="#" class="btn purple btn-mobile">Quiero participar</a>
+            </div>
+        </div>
         </section>
 
 
         <section class="newsletter">
             <div class="container">
-            <h2>Suscribite a nuestro newsletter</h2>
-            <p class="mt-4 mb-4">Recibí recursos, guías y novedades para acompañar en el día a día.</p>
+                <div class="newsletter-texto">
+                <h2>Suscribite a nuestro newsletter</h2>
+                <p class="mt-4 mb-4">
+                    Recibí recursos, guías y novedades para acompañar en el día a día.
+                </p>
+                </div>
 
-            <form id="newsletter-form" class="newsletter-form" novalidate>
+                <form id="newsletter-form" class="newsletter-form" novalidate>
                 <label for="nl-email">Correo electrónico</label>
 
                 <div class="input-group">
-                <input type="email" id="nl-email" name="email" placeholder="Ingresá tu email" autocomplete="email" required aria-describedby="nl-help"/>
-                <button type="submit" class="btn orange" id="nl-submit">Suscribirme</button>
+                    <input
+                    type="email"
+                    id="nl-email"
+                    name="email"
+                    placeholder="Ingresá tu email"
+                    autocomplete="email"
+                    required
+                    aria-describedby="nl-help"
+                    />
+                    <button type="submit" class="btn orange" id="nl-submit">
+                    Suscribirme
+                    </button>
                 </div>
-                <small id="nl-help" class="help">Prometemos no enviar spam. Podés darte de baja cuando quieras.</small>
-                <div id="nl-status" class="nl-status" role="status" aria-live="polite" hidden></div>
-            </form>
-            </div>
+
+                <small id="nl-help" class="help">
+                    Prometemos no enviar spam. Podés darte de baja cuando quieras.
+                </small>
+                <div
+                    id="nl-status"
+                    class="nl-status"
+                    role="status"
+                    aria-live="polite"
+                    hidden
+                ></div>
+                </form>
             </div>
         </section>
+
     </main>
     <div id="footer-placeholder"></div>
     <script src="./js/scripts.js" defer></script>

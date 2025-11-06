@@ -252,7 +252,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const KEY = "nl_subscribed_email";
   const saved = localStorage.getItem(KEY);
   if (saved) {
-    showStatus(`¡Listo, ${saved}! Ya estás suscripta. Revisá tu bandeja de entrada (y spam) para confirmar.`, "success");
+    showStatus(`¡Listo, ${saved}! Ya estás suscripto. Revisá tu bandeja de entrada (y spam) para confirmar.`, "success");
     form.setAttribute("aria-hidden", "true");
   }
 
