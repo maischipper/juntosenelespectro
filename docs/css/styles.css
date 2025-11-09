@@ -2002,11 +2002,11 @@ footer .bottom-footer {
   display: flex;
   flex-direction: column;
   gap: .5rem;
-  background: #f9f9ff;
+  background: #fff;
   border-radius: 10px;
   padding: 1rem;
   margin-bottom: 1rem;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   transition: transform .2s ease;
 }
 
@@ -2044,10 +2044,10 @@ footer .bottom-footer {
 }
 
 .recurso-sidebar {
-  background: #f7f9ff;
+  background: #fff;
   padding: 1.5rem;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .recurso-sidebar h3 {
