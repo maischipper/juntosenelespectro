@@ -58,6 +58,32 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  const header = document.getElementById("header-placeholder");
+  const footer = document.getElementById("footer-placeholder");
+  const depth = window.location.pathname.split("/").length - 2;
+  const basePath = "../".repeat(depth - 1); 
+
+  if (header) {
+    fetch(`${basePath}partials/header.html`)
+      .then(res => {
+        if (!res.ok) throw new Error("Error al cargar header");
+        return res.text();
+      })
+      .then(html => header.innerHTML = html)
+      .catch(err => console.warn(err));
+  }
+
+  if (footer) {
+    fetch(`${basePath}partials/footer.html`)
+      .then(res => {
+        if (!res.ok) throw new Error("Error al cargar footer");
+        return res.text();
+      })
+      .then(html => footer.innerHTML = html)
+      .catch(err => console.warn(err));
+  }
+});
 
 
 
