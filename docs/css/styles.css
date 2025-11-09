@@ -456,7 +456,7 @@ a {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Tenor Sans', sans-serif;
+    font-family: 'Tenor Sans', sans-serif !important;
     color: #333;
 }
 
@@ -473,6 +473,7 @@ h2 {
 h3 {
     font-size: 1.125em;
     margin-bottom: 12px;
+    margin-top: 12px;
 }
 
 p, label, small, input, li {
@@ -2264,7 +2265,72 @@ body.scrolled .site-header {
   }
 }
 
+.tabla-contenidos {
+  background-color: #fff9f0;
+  border: 1px solid #FBE29F;
+  border-radius: 10px;
+  padding: 1.5rem 2rem;
+  margin: 0;
+  font-family: "Work Sans", sans-serif;
+  color: #333;
+  max-width: 900px;
+}
 
+.tabla-contenidos h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: #333;
+}
 
+.tabla-contenidos ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.tabla-contenidos li {
+  margin: 0.6rem 0;
+}
+
+.tabla-contenidos li a {
+  text-decoration: none;
+  color: #444;
+  font-weight: 400;
+  transition: color 0.2s ease, padding-left 0.2s ease;
+}
+
+.tabla-contenidos li a::before {
+  content: "> ";
+  color: #ffc933;
+  font-weight: 600;
+}
+
+.tabla-contenidos li a:hover {
+  color: #000;
+  padding-left: 0.3rem;
+}
+
+.tabla-contenidos ul ul {
+  margin-left: 1.5rem;
+  border-left: 1px solid #ffc933;
+  padding-left: 1rem;
+}
+
+.single-post-hero {
+  background-color: #ffeebf;
+  color: #fff;
+  padding: 40px 0;
+}
+
+.single-post-hero .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.single-post-hero p {
+  color: #333;
+}
 
 
