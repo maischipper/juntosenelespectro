@@ -1,91 +1,74 @@
-//header
 document.addEventListener("DOMContentLoaded", () => {
   const headerContainer = document.getElementById("header-placeholder");
+  const footerContainer = document.getElementById("footer-placeholder");
+
+  const isGithub = window.location.hostname.includes("github.io");
+
+  const basePath = isGithub
+    ? "/juntosenelespectro/"
+    : "../".repeat(window.location.pathname.split("/").length - 2);
+
+  // carga header
   if (headerContainer) {
-    fetch("partials/header.html")
-      .then(response => response.text())
-      .then(data => {
-        headerContainer.innerHTML = data;
+    fetch(`${basePath}partials/header.html`)
+      .then((res) => {
+        if (!res.ok) throw new Error("Error al cargar header");
+        return res.text();
+      })
+      .then((html) => {
+        headerContainer.innerHTML = html;
 
         const hamburger = document.querySelector(".hamburger");
         const nav = document.getElementById("main-nav");
         const backdrop = document.querySelector(".nav-backdrop");
 
-        function openNav() {
+        const openNav = () => {
           nav.classList.add("open");
           hamburger.classList.add("active");
           hamburger.setAttribute("aria-expanded", "true");
           backdrop.hidden = false;
           document.body.classList.add("nav-open");
-        }
+        };
 
-        function closeNav() {
+        const closeNav = () => {
           nav.classList.remove("open");
           hamburger.classList.remove("active");
           hamburger.setAttribute("aria-expanded", "false");
           backdrop.hidden = true;
           document.body.classList.remove("nav-open");
-        }
+        };
 
-        hamburger.addEventListener("click", () => {
+        hamburger?.addEventListener("click", () => {
           nav.classList.contains("open") ? closeNav() : openNav();
         });
-
-        backdrop.addEventListener("click", closeNav);
-        nav.querySelectorAll("a").forEach(link => link.addEventListener("click", closeNav));
-        document.addEventListener("keydown", e => { if (e.key === "Escape") closeNav(); });
+        backdrop?.addEventListener("click", closeNav);
+        nav?.querySelectorAll("a").forEach((link) =>
+          link.addEventListener("click", closeNav)
+        );
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") closeNav();
+        });
       })
-      .catch(error => console.error("Error cargando el header:", error));
+      .catch((err) => console.warn(err));
+  }
+
+  // carga footer
+  if (footerContainer) {
+    fetch(`${basePath}partials/footer.html`)
+      .then((res) => {
+        if (!res.ok) throw new Error("Error al cargar footer");
+        return res.text();
+      })
+      .then((html) => (footerContainer.innerHTML = html))
+      .catch((err) => console.warn(err));
   }
 });
 
-//efecto sticky para header
+// header sticky efectyo
 document.addEventListener("scroll", () => {
   document.body.classList.toggle("scrolled", window.scrollY > 20);
 });
 
-
-//footer
-document.addEventListener("DOMContentLoaded", () => {
-  const footerContainer = document.getElementById("footer-placeholder");
-  if (footerContainer) {
-    fetch("partials/footer.html") 
-      .then(response => response.text())
-      .then(data => {
-        footerContainer.innerHTML = data;
-      })
-      .catch(error => {
-        console.error("Error cargando el footer:", error);
-      });
-  }
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  const header = document.getElementById("header-placeholder");
-  const footer = document.getElementById("footer-placeholder");
-  const depth = window.location.pathname.split("/").length - 2;
-  const basePath = "../".repeat(depth - 1); 
-
-  if (header) {
-    fetch(`${basePath}partials/header.html`)
-      .then(res => {
-        if (!res.ok) throw new Error("Error al cargar header");
-        return res.text();
-      })
-      .then(html => header.innerHTML = html)
-      .catch(err => console.warn(err));
-  }
-
-  if (footer) {
-    fetch(`${basePath}partials/footer.html`)
-      .then(res => {
-        if (!res.ok) throw new Error("Error al cargar footer");
-        return res.text();
-      })
-      .then(html => footer.innerHTML = html)
-      .catch(err => console.warn(err));
-  }
-});
 
 
 
