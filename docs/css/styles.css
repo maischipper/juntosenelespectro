@@ -1605,8 +1605,7 @@ footer .footer-top .menu-footer a {
 }
 
 footer .footer-top .menu-footer a:hover {
-  color: #5d7ea5 !important;
-  text-decoration: underline !important;
+  color: #555 !important;
 }
 
   .menu-footer .menu-right {
@@ -2209,6 +2208,42 @@ body {
 body.scrolled .site-header {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
   background-color: #dcebff; 
+}
+
+.donacion-cta {
+  background-color: #e9f4ec; 
+  text-align: center;
+  padding: 2rem 1rem 0;
+  margin-top: 0;
+}
+
+.donacion-cta h2 {
+  font-family: 'Tenor Sans', sans-serif;
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.donacion-cta p {
+  color: #444;
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.donacion-cta .btn.green {
+  background-color: #8acb9b;
+  color: #222;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.donacion-cta .btn.green:hover {
+  background-color: #7abc8d;
+  transform: translateY(-2px);
 }
 
 
