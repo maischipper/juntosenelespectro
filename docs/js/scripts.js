@@ -2,13 +2,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const headerContainer = document.getElementById("header-placeholder");
   const footerContainer = document.getElementById("footer-placeholder");
 
+  // Detecta si está en GitHub Pages
   const isGithub = window.location.hostname.includes("github.io");
 
+  // Calcula la profundidad del archivo actual
+  const pathDepth = window.location.pathname.split("/").length - 2;
   const basePath = isGithub
     ? "/juntosenelespectro/"
-    : "../".repeat(window.location.pathname.split("/").length - 2);
+    : "../".repeat(pathDepth - 1);
 
-  // carga header
+  // --- CARGAR HEADER ---
   if (headerContainer) {
     fetch(`${basePath}partials/header.html`)
       .then((res) => {
@@ -18,6 +21,15 @@ document.addEventListener("DOMContentLoaded", () => {
       .then((html) => {
         headerContainer.innerHTML = html;
 
+        // Corrige imágenes dentro del header
+        headerContainer.querySelectorAll("img").forEach((img) => {
+          const src = img.getAttribute("src");
+          if (!src.startsWith("http") && !src.startsWith("/")) {
+            img.src = `${basePath}${src.replace(/^(\.\/|\/)?/, "")}`;
+          }
+        });
+
+        // Interacciones del menú
         const hamburger = document.querySelector(".hamburger");
         const nav = document.getElementById("main-nav");
         const backdrop = document.querySelector(".nav-backdrop");
@@ -52,24 +64,40 @@ document.addEventListener("DOMContentLoaded", () => {
       .catch((err) => console.warn(err));
   }
 
-  // carga footer
+  // --- CARGAR FOOTER ---
   if (footerContainer) {
     fetch(`${basePath}partials/footer.html`)
       .then((res) => {
         if (!res.ok) throw new Error("Error al cargar footer");
         return res.text();
       })
-      .then((html) => (footerContainer.innerHTML = html))
+      .then((html) => {
+        footerContainer.innerHTML = html;
+
+        // Corrige imágenes dentro del footer
+        footerContainer.querySelectorAll("img").forEach((img) => {
+          const src = img.getAttribute("src");
+          if (!src.startsWith("http") && !src.startsWith("/")) {
+            img.src = `${basePath}${src.replace(/^(\.\/|\/)?/, "")}`;
+          }
+        });
+      })
       .catch((err) => console.warn(err));
   }
+
+  // --- CORRIGE IMÁGENES EN EL CONTENIDO PRINCIPAL ---
+  document.querySelectorAll("main img, .section img, .container img").forEach((img) => {
+    const src = img.getAttribute("src");
+    if (src && !src.startsWith("http") && !src.startsWith("/") && !src.startsWith(basePath)) {
+      img.src = `${basePath}${src.replace(/^(\.\/|\/)?/, "")}`;
+    }
+  });
 });
 
-// header sticky efectyo
+// --- EFECTO STICKY HEADER ---
 document.addEventListener("scroll", () => {
   document.body.classList.toggle("scrolled", window.scrollY > 20);
 });
-
-
 
 
 
