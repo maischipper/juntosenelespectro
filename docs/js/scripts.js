@@ -39,8 +39,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-
-
+//efecto sticky para header
+document.addEventListener("scroll", () => {
+  document.body.classList.toggle("scrolled", window.scrollY > 20);
+});
 
 
 //footer
