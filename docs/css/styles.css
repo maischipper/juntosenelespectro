@@ -494,7 +494,7 @@ p, label, small, input, li {
   background-position: center;
   background-repeat: no-repeat;
   color: #333; 
-  padding: 80px 24px; 
+  padding: 60px 24px; 
   overflow: hidden;
 }
 
@@ -510,7 +510,7 @@ p, label, small, input, li {
 .hero-content {
   position: relative;
   z-index: 1;
-  max-width: 800px;
+  max-width: 700px;
 }
 
 .bg-gradient-blue {
@@ -1170,7 +1170,7 @@ label.required::after { content:" *"; color:#e63946; margin-left:4px; }
     display: flex;
     align-items: center;
     justify-content: center; 
-    min-height: 70vh;
+    min-height: 50vh;
   }
 
   .section-hero .hero-content {
