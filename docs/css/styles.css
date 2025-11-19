@@ -2332,4 +2332,164 @@ body.scrolled .site-header {
   color: #333;
 }
 
+.donar-section, .sumarse-section {
+    font-family: "Inter", sans-serif;
+    color: #2a2a2a;
+}
+
+.container {
+    width: min(1100px, 90%);
+    margin: 0 auto;
+}
+
+.donar-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.donar-header h2 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.donar-header p {
+    max-width: 650px;
+    margin: 0 auto;
+    line-height: 1.5;
+    color: #555;
+}
+
+.donar-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+}
+
+.donar-opciones h3 {
+    font-size: 20px;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.donar-item {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.donar-item .icon {
+    font-size: 24px;
+    line-height: 1;
+}
+
+.donar-item h4 {
+    font-size: 18px;
+    margin-bottom: 0.25rem;
+}
+
+.donar-item p {
+    color: #666;
+    font-size: 15px;
+}
+
+.donar-form h3 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.donar-form p {
+    margin-bottom: 1rem;
+    color: #666;
+}
+
+.donar-form label {
+    display: block;
+    margin-top: 1rem;
+    font-size: 14px;
+}
+
+.donar-form input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 4px;
+    border: 1px solid #dcdcdc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.donar-form button {
+    margin-top: 1.5rem;
+    width: 100%;
+    background: #7ac48a;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.donar-form button:hover {
+    background: #69b379;
+}
+
+.donar-gracias {
+    background: #e8f6ec;
+    padding: 1.8rem;
+    text-align: center;
+    border-radius: 10px;
+    margin: 3rem 0 1rem;
+}
+
+.donar-gracias p {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.donar-gracias span {
+    display: block;
+    margin-top: 5px;
+    font-size: 15px;
+    color: #444;
+}
+
+.sumarse-section {
+    background: #f7eadd;
+    padding: 3rem 0;
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.sumarse-section h2 {
+    font-size: 26px;
+}
+
+.sumarse-section p {
+    margin: 0.8rem auto 1.5rem;
+    max-width: 600px;
+    color: #444;
+}
+
+.btn-sumarse {
+    background: #f5a27e;
+    color: white;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: 0.2s;
+}
+
+.btn-sumarse:hover {
+    background: #e98f68;
+}
+
+@media (max-width: 800px) {
+    .donar-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 
