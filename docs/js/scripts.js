@@ -20,6 +20,21 @@ function includePartial(id, file) {
     });
 }
 
+// data-linknss
+function fixMenuLinks() {
+    const links = document.querySelectorAll("[data-link]");
+    links.forEach(link => {
+        const target = link.dataset.link;
+        link.setAttribute("href", basePath + target);
+    });
+}
+
+fetch(basePath + "partials/header.html")
+    .then(r => r.text())
+    .then(html => {
+        document.getElementById("header").innerHTML = html;
+        fixMenuLinks();
+    });
 
 
 
