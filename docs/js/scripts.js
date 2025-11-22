@@ -1,6 +1,4 @@
-/******************************************************
- * CARGA DE HEADER + FOOTER + BASEPATH CORREGIDO
- ******************************************************/
+//carga header + footer
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -46,9 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /*********************
-   * HEADER
-   *********************/
+//header
   if (headerContainer) {
     includePartial("header-placeholder", "header.html", () => {
 
@@ -95,33 +91,31 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /*********************
-   * FOOTER
-   *********************/
-  if (footerContainer) {
-    includePartial("footer-placeholder", "footer.html", () => {
-      footerContainer.querySelectorAll("img").forEach(img => {
-        const src = img.getAttribute("src");
-        if (src && !src.startsWith("http") && !src.startsWith("/")) {
-          img.src = `${basePath}${src.replace(/^(\.\/|\/)?/, "")}`;
-        }
-      });
+//footer
+if (footerContainer) {
+  includePartial("footer-placeholder", "footer.html", () => {
+
+ 
+    fixMenuLinks();
+
+
+    footerContainer.querySelectorAll("img").forEach(img => {
+      let src = img.getAttribute("src");
+
+      if (src.startsWith("/")) {
+        src = src.replace(/^\//, ""); 
+      }
+
+      if (!src.startsWith("http") && !src.startsWith("/")) {
+        img.src = `${basePath}${src.replace(/^(\.\/|\/)?/, "")}`;
+      }
     });
-  }
 
-  document.querySelectorAll("main img, .section img, .container img").forEach(img => {
-    const src = img.getAttribute("src");
-    if (src && !src.startsWith("http") && !src.startsWith("/") && !src.startsWith(basePath)) {
-      img.src = `${basePath}${src.replace(/^(\.\/|\/)?/, "")}`;
-    }
   });
+}
 
-});
 
-/******************************************************
- * STICKY HEADER
- ******************************************************/
-
+//sticky header
 document.addEventListener("scroll", () => {
   document.body.classList.toggle("scrolled", window.scrollY > 20);
 });
@@ -164,9 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-/******************************************************
- * SLIDER / AUTOSCROLL DE ARTÍCULS
- ******************************************************/
+//carrusel y mov de articulos
 (function(){
   const wrap = document.querySelector('.articles-wrap');
   if (!wrap) return;
@@ -256,10 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 })();
 
-/******************************************************
- * TIMER EVENTOS
- ******************************************************/
-
+//timer eventos
 document.addEventListener("DOMContentLoaded", () => {
   const timers = document.querySelectorAll(".timer[data-target]");
   if (!timers.length) return;
@@ -300,10 +289,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-/******************************************************
- * NEWSLETTER FAKE
- ******************************************************/
-
+//newsletter fake
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("newsletter-form");
   if (!form) return;
@@ -363,10 +349,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-/******************************************************
- * VALIDACIÓN FORMULARIO DE CONTACTO
- ******************************************************/
-
+//validacion form contacto
 (function () {
   function onReady(fn) {
     if (document.readyState !== "loading") fn();
