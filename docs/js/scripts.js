@@ -2,12 +2,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const headerContainer = document.getElementById("header-placeholder");
   const footerContainer = document.getElementById("footer-placeholder");
 
-  const isGithub = window.location.hostname.includes("github.io");
+const isGithub = window.location.hostname.includes("github.io");
+
 const repoName = window.location.pathname.split("/")[1];
 
+const pathDepth = window.location.pathname.split("/").length - 2;
+
 const basePath = isGithub
-  ? `/${repoName}/docs/`
-  : "../".repeat(window.location.pathname.split("/").length - 3);
+  ? `/${repoName}/`
+  : "../".repeat(pathDepth - 1);
+
+function includePartial(id, file) {
+  fetch(basePath + "partials/" + file)
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById(id).innerHTML = data;
+    });
+}
+
 
 
 
