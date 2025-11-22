@@ -1,136 +1,139 @@
+/******************************************************
+ * CARGA DE HEADER + FOOTER + BASEPATH CORREGIDO
+ ******************************************************/
+
 document.addEventListener("DOMContentLoaded", () => {
+
   const headerContainer = document.getElementById("header-placeholder");
   const footerContainer = document.getElementById("footer-placeholder");
 
-const isGithub = window.location.hostname.includes("github.io");
+  const isGithub = window.location.hostname.includes("github.io");
+  const repoName = window.location.pathname.split("/")[1];
+  const pathParts = window.location.pathname.split("/").filter(Boolean);
 
-const repoName = window.location.pathname.split("/")[1];
+  let basePath;
 
-const pathDepth = window.location.pathname.split("/").length - 2;
 
-const basePath = isGithub
-  ? `/${repoName}/`
-  : "../".repeat(pathDepth - 1);
+  if (isGithub) {
+    basePath = `/${repoName}/`;
+  } else {
+    if (pathParts.length <= 2) {
 
-function includePartial(id, file) {
-  fetch(basePath + "partials/" + file)
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById(id).innerHTML = data;
-    });
-}
+      basePath = "./";
+    } else {
 
-// data-linknss
-function fixMenuLinks() {
+      basePath = "../".repeat(pathParts.length - 2);
+    }
+  }
+
+
+  function includePartial(id, file, callback) {
+    fetch(basePath + "partials/" + file)
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById(id).innerHTML = html;
+        if (callback) callback();
+      })
+      .catch(err => console.warn("Error loading partial:", err));
+  }
+
+
+  function fixMenuLinks() {
     const links = document.querySelectorAll("[data-link]");
     links.forEach(link => {
-        const target = link.dataset.link;
-        link.setAttribute("href", basePath + target);
+      const target = link.dataset.link;
+      link.href = basePath + target;
     });
-}
+  }
 
-fetch(basePath + "partials/header.html")
-    .then(r => r.text())
-    .then(html => {
-        document.getElementById("header").innerHTML = html;
-        fixMenuLinks();
-    });
-
-
-
-  // --- CARGAR HEADER ---
+  /*********************
+   * HEADER
+   *********************/
   if (headerContainer) {
-    fetch(`${basePath}partials/header.html`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Error al cargar header");
-        return res.text();
-      })
-      .then((html) => {
-        headerContainer.innerHTML = html;
+    includePartial("header-placeholder", "header.html", () => {
 
-        headerContainer.querySelectorAll("img").forEach((img) => {
-          const src = img.getAttribute("src");
-          if (!src.startsWith("http") && !src.startsWith("/")) {
-            img.src = `${basePath}${src.replace(/^(\.\/|\/)?/, "")}`;
-          }
-        });
+      fixMenuLinks();
 
-        const hamburger = document.querySelector(".hamburger");
-        const nav = document.getElementById("main-nav");
-        const backdrop = document.querySelector(".nav-backdrop");
 
-        const openNav = () => {
-          nav.classList.add("open");
-          hamburger.classList.add("active");
-          hamburger.setAttribute("aria-expanded", "true");
-          backdrop.hidden = false;
-          document.body.classList.add("nav-open");
-        };
+      headerContainer.querySelectorAll("img").forEach(img => {
+        const src = img.getAttribute("src");
+        if (src && !src.startsWith("http") && !src.startsWith("/")) {
+          img.src = `${basePath}${src.replace(/^(\.\/|\/)?/, "")}`;
+        }
+      });
 
-        const closeNav = () => {
-          nav.classList.remove("open");
-          hamburger.classList.remove("active");
-          hamburger.setAttribute("aria-expanded", "false");
-          backdrop.hidden = true;
-          document.body.classList.remove("nav-open");
-        };
+      const hamburger = document.querySelector(".hamburger");
+      const nav = document.getElementById("main-nav");
+      const backdrop = document.querySelector(".nav-backdrop");
 
-        hamburger?.addEventListener("click", () => {
-          nav.classList.contains("open") ? closeNav() : openNav();
-        });
-        backdrop?.addEventListener("click", closeNav);
-        nav?.querySelectorAll("a").forEach((link) =>
-          link.addEventListener("click", closeNav)
-        );
-        document.addEventListener("keydown", (e) => {
-          if (e.key === "Escape") closeNav();
-        });
-      })
-      .catch((err) => console.warn(err));
+      const openNav = () => {
+        nav.classList.add("open");
+        hamburger.classList.add("active");
+        hamburger.setAttribute("aria-expanded", "true");
+        backdrop.hidden = false;
+        document.body.classList.add("nav-open");
+      };
+
+      const closeNav = () => {
+        nav.classList.remove("open");
+        hamburger.classList.remove("active");
+        hamburger.setAttribute("aria-expanded", "false");
+        backdrop.hidden = true;
+        document.body.classList.remove("nav-open");
+      };
+
+      hamburger?.addEventListener("click", () => {
+        nav.classList.contains("open") ? closeNav() : openNav();
+      });
+
+      backdrop?.addEventListener("click", closeNav);
+      nav?.querySelectorAll("a").forEach(link => link.addEventListener("click", closeNav));
+
+      document.addEventListener("keydown", e => {
+        if (e.key === "Escape") closeNav();
+      });
+    });
   }
 
-  // --- CARGAR FOOTER ---
+  /*********************
+   * FOOTER
+   *********************/
   if (footerContainer) {
-    fetch(`${basePath}partials/footer.html`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Error al cargar footer");
-        return res.text();
-      })
-      .then((html) => {
-        footerContainer.innerHTML = html;
-
-
-        footerContainer.querySelectorAll("img").forEach((img) => {
-          const src = img.getAttribute("src");
-          if (!src.startsWith("http") && !src.startsWith("/")) {
-            img.src = `${basePath}${src.replace(/^(\.\/|\/)?/, "")}`;
-          }
-        });
-      })
-      .catch((err) => console.warn(err));
+    includePartial("footer-placeholder", "footer.html", () => {
+      footerContainer.querySelectorAll("img").forEach(img => {
+        const src = img.getAttribute("src");
+        if (src && !src.startsWith("http") && !src.startsWith("/")) {
+          img.src = `${basePath}${src.replace(/^(\.\/|\/)?/, "")}`;
+        }
+      });
+    });
   }
 
-  document.querySelectorAll("main img, .section img, .container img").forEach((img) => {
+  document.querySelectorAll("main img, .section img, .container img").forEach(img => {
     const src = img.getAttribute("src");
     if (src && !src.startsWith("http") && !src.startsWith("/") && !src.startsWith(basePath)) {
       img.src = `${basePath}${src.replace(/^(\.\/|\/)?/, "")}`;
     }
   });
+
 });
 
-// --- EFECTO STICKY HEADER ---
+/******************************************************
+ * STICKY HEADER
+ ******************************************************/
+
 document.addEventListener("scroll", () => {
   document.body.classList.toggle("scrolled", window.scrollY > 20);
 });
 
 
 
-
-// menú hamburguesa y off-canvas
 document.addEventListener('DOMContentLoaded', () => {
   const hamburger = document.querySelector('.hamburger');
   const nav = document.getElementById('main-nav');
   const backdrop = document.querySelector('.nav-backdrop');
+
+  if (!hamburger || !nav) return;
 
   function openNav() {
     nav.classList.add('open');
@@ -149,58 +152,42 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   hamburger.addEventListener('click', () => {
-    if (nav.classList.contains('open')) {
-      closeNav();
-    } else {
-      openNav();
-    }
+    nav.classList.contains('open') ? closeNav() : openNav();
   });
 
-  // clic en backdrop
-  backdrop.addEventListener('click', closeNav);
+  backdrop?.addEventListener('click', closeNav);
+  document.querySelectorAll('#main-menu a').forEach(link => link.addEventListener('click', closeNav));
 
-  // clic en menú
-  document.querySelectorAll('#main-menu a').forEach(link => {
-    link.addEventListener('click', closeNav);
-  });
-
-  // cerrar con Esc
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') {
-      closeNav();
-    }
+    if (e.key === 'Escape') closeNav();
   });
 });
 
 
-
-
-
-// movimiento de grid artículos y recursos desc
+/******************************************************
+ * SLIDER / AUTOSCROLL DE ARTÍCULS
+ ******************************************************/
 (function(){
   const wrap = document.querySelector('.articles-wrap');
   if (!wrap) return;
 
   const scroller = wrap.querySelector('.articles-grid');
   const cards = [...scroller.children];
-  cards.forEach(card => {
-    const clone = card.cloneNode(true);
-    scroller.appendChild(clone);
-  });
+  cards.forEach(card => scroller.appendChild(card.cloneNode(true)));
 
   const prevBtn  = wrap.querySelector('.prev');
   const nextBtn  = wrap.querySelector('.next');
 
   const autoplayEnabled = wrap.dataset.autoplay === 'true';
   const intervalMs = Number(wrap.dataset.interval || 5000);
-
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   let autoplayTimer = null;
   let isHoverOrFocus = false;
 
   function slideWidth() {
     const card = scroller.querySelector('.card-post');
-    if (!card) return scroller.clientWidth; 
+    if (!card) return scroller.clientWidth;
     const styles = getComputedStyle(scroller);
     const gap = parseFloat(styles.columnGap || styles.gap || 16);
     return card.getBoundingClientRect().width + gap;
@@ -222,64 +209,59 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function scrollByCard(dir = 1) {
-  const width = slideWidth();
-  scroller.scrollBy({ left: dir * width, behavior: 'smooth' });
+    const width = slideWidth();
+    scroller.scrollBy({ left: dir * width, behavior: 'smooth' });
 
-  if (dir > 0 && scroller.scrollLeft >= scroller.scrollWidth / 2) {
-    scroller.scrollLeft = 0;
-  } else if (dir < 0 && scroller.scrollLeft <= 0) {
-    scroller.scrollLeft = scroller.scrollWidth / 2 - scroller.clientWidth;
+    if (dir > 0 && scroller.scrollLeft >= scroller.scrollWidth / 2) {
+      scroller.scrollLeft = 0;
+    } else if (dir < 0 && scroller.scrollLeft <= 0) {
+      scroller.scrollLeft = scroller.scrollWidth / 2 - scroller.clientWidth;
+    }
+
+    setTimeout(updateButtons, 500);
   }
 
-  setTimeout(updateButtons, 500);
-}
-
-
-  
   if (prevBtn) prevBtn.addEventListener('click', () => scrollByCard(-1));
   if (nextBtn) nextBtn.addEventListener('click', () => scrollByCard(1));
 
-  
   function startAutoplay() {
-  if (!autoplayEnabled || prefersReduced) return;
-  stopAutoplay();
+    if (!autoplayEnabled || prefersReduced) return;
+    stopAutoplay();
 
-  autoplayTimer = setInterval(() => {
-    if (isHoverOrFocus) return;
+    autoplayTimer = setInterval(() => {
+      if (isHoverOrFocus) return;
 
-    const width = slideWidth();
-    scroller.scrollBy({ left: width, behavior: 'smooth' });
+      const width = slideWidth();
+      scroller.scrollBy({ left: width, behavior: 'smooth' });
 
-    if (scroller.scrollLeft >= scroller.scrollWidth / 2) {
-      scroller.scrollLeft = 0;
-    }
-  }, intervalMs);
-}
+      if (scroller.scrollLeft >= scroller.scrollWidth / 2) {
+        scroller.scrollLeft = 0;
+      }
+    }, intervalMs);
+  }
 
-  function stopAutoplay() { if (autoplayTimer) clearInterval(autoplayTimer); }
+  function stopAutoplay() {
+    if (autoplayTimer) clearInterval(autoplayTimer);
+  }
 
-  
-  ['mouseenter','focusin'].forEach(evt => wrap.addEventListener(evt, () => { isHoverOrFocus = true; }));
-  ['mouseleave','focusout'].forEach(evt => wrap.addEventListener(evt, () => { isHoverOrFocus = false; }));
+  wrap.addEventListener('mouseenter', () => isHoverOrFocus = true);
+  wrap.addEventListener('mouseleave', () => isHoverOrFocus = false);
 
-  
   scroller.addEventListener('scroll', updateButtons, { passive: true });
   window.addEventListener('resize', updateButtons);
 
-  
   updateButtons();
   startAutoplay();
+  window.addEventListener('resize', startAutoplay);
 
-  
-  window.addEventListener('resize', () => { startAutoplay(); });
 })();
 
+/******************************************************
+ * TIMER EVENTOS
+ ******************************************************/
 
-
-
-// timer eventos
 document.addEventListener("DOMContentLoaded", () => {
-  const timers = Array.from(document.querySelectorAll(".timer[data-target]"));
+  const timers = document.querySelectorAll(".timer[data-target]");
   if (!timers.length) return;
 
   function fmt(n){ return String(n).padStart(2,"0"); }
@@ -306,22 +288,22 @@ document.addEventListener("DOMContentLoaded", () => {
   tick();
   setInterval(tick, 1000);
 
-  // form evento
   document.querySelectorAll(".event-form").forEach(form => {
     form.addEventListener("submit", e => {
       e.preventDefault();
       const btn = form.querySelector(".btn");
-      btn.disabled = true; btn.textContent = "Enviando…";
-      setTimeout(() => { btn.textContent = "Inscripta/o ✔"; }, 900);
+      btn.disabled = true;
+      btn.textContent = "Enviando…";
+      setTimeout(() => btn.textContent = "Inscripta/o ✔", 900);
     });
   });
 });
 
 
+/******************************************************
+ * NEWSLETTER FAKE
+ ******************************************************/
 
-
-
-// newsletter fake
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("newsletter-form");
   if (!form) return;
@@ -332,15 +314,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const KEY = "nl_subscribed_email";
   const saved = localStorage.getItem(KEY);
+
   if (saved) {
     showStatus(`¡Listo, ${saved}! Ya estás suscripto. Revisá tu bandeja de entrada (y spam) para confirmar.`, "success");
     form.setAttribute("aria-hidden", "true");
   }
 
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", e => {
     e.preventDefault();
 
-    const email = (emailInput.value || "").trim();
+    const email = emailInput.value.trim();
 
     if (!isValidEmail(email)) {
       showStatus("Ingresá un correo válido (ej: nombre@dominio.com).", "error");
@@ -350,11 +333,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     submitBtn.classList.add("is-loading");
     submitBtn.disabled = true;
-    showStatus("Enviando…", null);
+    showStatus("Enviando…");
 
     setTimeout(() => {
-
-      showStatus(`¡Gracias! Enviamos un correo a <strong>${escapeHtml(email)}</strong>. Revisá tu bandeja de entrada y confirmá la suscripción.`, "success");
+      showStatus(`¡Gracias! Enviamos un correo a <strong>${escapeHtml(email)}</strong>. Revisá tu bandeja de entrada.`, "success");
       localStorage.setItem(KEY, email);
       form.reset();
       submitBtn.classList.remove("is-loading");
@@ -363,7 +345,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   function isValidEmail(v) {
-
     return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
   }
 
@@ -382,6 +363,10 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+/******************************************************
+ * VALIDACIÓN FORMULARIO DE CONTACTO
+ ******************************************************/
+
 (function () {
   function onReady(fn) {
     if (document.readyState !== "loading") fn();
@@ -389,9 +374,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   onReady(function () {
-   
     const form = document.getElementById("contact-form");
-    if (!form) return; 
+    if (!form) return;
 
     const email = form.querySelector("#email");
     const emailHelp = form.querySelector("#emailHelp");
@@ -408,18 +392,15 @@ document.addEventListener("DOMContentLoaded", () => {
       emailHelp.textContent = msg;
     }
 
-    
     email.addEventListener("blur", () => {
       if (email.value.trim() === "") return;
       if (!email.checkValidity()) setEmailError("Ingresá un correo electrónico válido.");
     });
 
-    
     email.addEventListener("input", () => {
       if (email.value.trim() === "" || email.checkValidity()) clearEmailError();
     });
 
-    
     form.addEventListener("submit", (e) => {
       clearEmailError();
       const v = email.value.trim();
