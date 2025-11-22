@@ -2,14 +2,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const headerContainer = document.getElementById("header-placeholder");
   const footerContainer = document.getElementById("footer-placeholder");
 
-  // Detecta si está en GitHub Pages
   const isGithub = window.location.hostname.includes("github.io");
+const repoName = window.location.pathname.split("/")[1];
 
-  // Calcula la profundidad del archivo actual
-  const pathDepth = window.location.pathname.split("/").length - 2;
-  const basePath = isGithub
-    ? "/juntosenelespectro/"
-    : "../".repeat(pathDepth - 1);
+const basePath = isGithub
+  ? `/${repoName}/docs/`
+  : "../".repeat(window.location.pathname.split("/").length - 3);
+
+
 
   // --- CARGAR HEADER ---
   if (headerContainer) {
@@ -21,7 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
       .then((html) => {
         headerContainer.innerHTML = html;
 
-        // Corrige imágenes dentro del header
         headerContainer.querySelectorAll("img").forEach((img) => {
           const src = img.getAttribute("src");
           if (!src.startsWith("http") && !src.startsWith("/")) {
@@ -29,7 +28,6 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         });
 
-        // Interacciones del menú
         const hamburger = document.querySelector(".hamburger");
         const nav = document.getElementById("main-nav");
         const backdrop = document.querySelector(".nav-backdrop");
@@ -74,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .then((html) => {
         footerContainer.innerHTML = html;
 
-        // Corrige imágenes dentro del footer
+
         footerContainer.querySelectorAll("img").forEach((img) => {
           const src = img.getAttribute("src");
           if (!src.startsWith("http") && !src.startsWith("/")) {
@@ -85,7 +83,6 @@ document.addEventListener("DOMContentLoaded", () => {
       .catch((err) => console.warn(err));
   }
 
-  // --- CORRIGE IMÁGENES EN EL CONTENIDO PRINCIPAL ---
   document.querySelectorAll("main img, .section img, .container img").forEach((img) => {
     const src = img.getAttribute("src");
     if (src && !src.startsWith("http") && !src.startsWith("/") && !src.startsWith(basePath)) {

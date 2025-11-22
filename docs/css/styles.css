@@ -2338,11 +2338,6 @@ body.scrolled .site-header {
     color: #2a2a2a;
 }
 
-.container {
-    width: min(1100px, 90%);
-    margin: 0 auto;
-}
-
 .donar-header {
     text-align: center;
     margin-bottom: 3rem;
@@ -2585,4 +2580,7 @@ body.scrolled .site-header {
     }
 }
 
+.equipo-lista, .que-hacemos-lista {
+  list-style: none !important;
+}
 
